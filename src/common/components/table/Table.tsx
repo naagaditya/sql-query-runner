@@ -11,8 +11,7 @@ export default function Table({tableData}: Props) {
       <thead>
         <tr>
           {Object.keys(tableData[0]).map((data, i) => (
-            <HeaderCell key={`${data}${i}`} text={data}/>
-          ))}
+            <HeaderCell key={`${data}${i}`} text={data}/>))}
         </tr>
       </thead>
       <tbody>
@@ -28,8 +27,7 @@ const TableRow = ({row, index}: {row: any; index: number}) => (<tr>
   ))}
 </tr>);
 const HeaderCell = ({text}: {text: string}) => <th>{text}</th>;
-const TableCell = ({data}: {data: any}) => <td> {
-  typeof data === 'object' ?
-  JSON.stringify(data) :
-  data.toString()
-  } </td>;
+const TableCell = ({data}: {data: any}) => 
+  (<td>
+    {typeof data === 'object' ? JSON.stringify(data) : data.toString()}
+  </td>);
