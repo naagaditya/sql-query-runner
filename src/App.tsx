@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import { Users } from './dummyData/dummyTables';
 import Table from './table/Table';
+import { evaluateWhereCondition } from './utils/evaluateWhereCondition';
 
 function App() {
   const [filteredTable, setFilteredTable] = useState<Record<string, any>[]>([]);
@@ -20,21 +21,27 @@ function App() {
   const handleExecuteQuery = () => {
     let columns: string = '';
     let tableName: string = '';
+    let where: string = '';
     [, columns, tableName] = query.match(/SELECT (.*) FROM (.*);/) || [];
+    [, columns, tableName, where] = query.match(/SELECT (.*) FROM (.*) WHERE (.*);/) || [];
     let res;
     if (columns && tableName) {
       if (columns.trim() === '*') {
-        res = allTables[tableName]
+        res = allTables[tableName];
       } else {
-        res = allTables[tableName].map(row => 
+        if(where) {
+          res = allTables[tableName].filter(row => evaluateWhereCondition(row, where))
+        }
+        res = res?.map(row => 
           columns.split(',').reduce((acc, col) => ({...acc, [`${col.trim()}`]: row[col.trim()] }), {}))
       }
-      setFilteredTable(res);
+      
+      setFilteredTable(res || []);
     } else {
       setErrorMessage('Wrong query'); 
     }
-    
   };
+
   const handleDeleteTable = (tableName: string) => {
     delete allTables[tableName];
     setAllTables({...allTables});
