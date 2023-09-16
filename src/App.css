@@ -4,15 +4,67 @@
   grid-auto-rows: minmax(auto, 100vh);
   grid-template-areas: 
   "in tbl"
+  "ot tbl"
+  "ot tbl"
   "ot tbl";
   height: 100vh;
 }
 .query-input {
   grid-area: in;
+  position: relative;
+}
+.query-input .run {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.query-input .run .error {
+  color: red;
+  font-size: large;
+}
+.query-input textarea {
+  font-size: large;
+  height: 100%;
+  width: 100%;
 }
 .query-output {
   grid-area: ot;
+  overflow: scroll;
 }
 .avaiable-tables {
   grid-area: tbl;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.avaiable-tables .table {
+  height: 100%;
+  overflow: scroll;
+  flex: 1;
+  margin: 12px;
+}
+
+.table-name {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 50%);
+}
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  width: 500px;
+  margin: auto;
+  flex-direction: column;
 }
