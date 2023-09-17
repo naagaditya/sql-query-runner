@@ -27,6 +27,7 @@
   overflow: scroll;
   flex-wrap: nowrap;
   margin: 12px;
+  flex: 1;
 }
 
 .import-btn {
