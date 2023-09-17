@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import './QueryInput.css';
 import { evaluateWhereCondition } from 'query-input/utils/evaluateWhereCondition';
 
@@ -10,15 +10,15 @@ export default function QueryInput(props: Props) {
   const { allTables, setFilteredTable } = props;
   const [query, setQuery] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const handleChangeQuery = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChangeQuery = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const updatedQuery = e.target.value;
     setErrorMessage('');
     setQuery(updatedQuery);
-  }
-  const handleExecuteQuery = () => {
-    let columns: string = '';
-    let tableName: string = '';
-    let where: string = '';
+  }, []);
+  const handleExecuteQuery = useCallback(() => {
+    let columns = '';
+    let tableName = '';
+    let where = '';
     if (query.includes('WHERE')) {
       [, columns, tableName, where] = query.match(/SELECT (.*) FROM (.*) WHERE (.*);/) || [];
     } else {
@@ -44,14 +44,15 @@ export default function QueryInput(props: Props) {
     } else {
       setErrorMessage('Wrong query'); 
     }
-  };
+  }, [allTables, query, setFilteredTable]);
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
     if (e.code === 'Enter') {
       e.preventDefault();
       handleExecuteQuery();
     }
-  }
+  }, [handleExecuteQuery]);
+
   return (
     <div className="query-input">
       <textarea

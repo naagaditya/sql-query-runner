@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import './SQLQueryRunner.css';
 import { Users } from 'dummyData/dummyTables';
 import Table from 'common/components/table/Table';
@@ -12,17 +12,18 @@ export default function SQLQueryRunner() {
   const [allTables, setAllTables] = useState<Record<string, Record<string, any>[]>>({Users})
   
 
-  const handleDeleteTable = (tableName: string) => {
+  const handleDeleteTable = useCallback((tableName: string) => {
     delete allTables[tableName];
     setAllTables({...allTables});
-  };
-  const handleImport = (tableNameToImport: string, tableToImport: Record<string, any>[]) => {
+  }, [allTables]);
+
+  const handleImport = useCallback((tableNameToImport: string, tableToImport: Record<string, any>[]) => {
     setAllTables({
       ...allTables,
       [tableNameToImport]: tableToImport
     });
     setShowImportModal(false);
-  };
+  }, [allTables]);
   
   return (
     <div className="sql-query-runner">

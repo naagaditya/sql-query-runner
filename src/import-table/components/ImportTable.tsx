@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import './ImportTable.css';
 
 type Props = {
@@ -16,16 +16,18 @@ export default function ImportTable(props: Props) {
   const [errorMessage, setErrorMessage] = useState('');
   const [inputType, setInputType] = useState<InputType>('CSV');
 
-  const handleChangeImportString = 
+  const handleChangeImportString = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setErrorMessage('');
     setTableToImport(e.target.value);
-  }
-  const handleChangeImportTableName = 
+  }, []);
+
+  const handleChangeImportTableName = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
     setErrorMessage('');
     setTableNameToImport(e.target.value);
-  }
+  }, []);
+
   const getTableFromCSV = (tableToImport: string) => {
     const csvArr = tableToImport.split(/\n/);
     const headers = csvArr[0].split(',');
@@ -39,7 +41,7 @@ export default function ImportTable(props: Props) {
       return jsonRow;
     });
   }
-  const handleImport = () => {
+  const handleImport = useCallback(() => {
     try {
       const parsedTable = inputType === 'JSON' ? 
         JSON.parse(tableToImport) : getTableFromCSV(tableToImport);
@@ -54,14 +56,14 @@ export default function ImportTable(props: Props) {
     catch(error: any) {
       setErrorMessage(error.message);
     }
-  }
+  }, [inputType, tableNameToImport, tableToImport, props])
 
-  const handleChangeInputType = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeInputType = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value as InputType;
     if (e.target.checked) {
       setInputType(value);
     }
-  }
+  }, [])
   return (
     <div className="modal-overlay">
       <div className="modal">
