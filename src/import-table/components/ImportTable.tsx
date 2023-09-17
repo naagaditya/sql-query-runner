@@ -7,10 +7,14 @@ type Props = {
   hideModal: () => void;
 
 };
+
+type InputType = 'CSV' | 'JSON';
+
 export default function ImportTable(props: Props) {
   const [tableToImport, setTableToImport] = useState('');
   const [tableNameToImport, setTableNameToImport] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [inputType, setInputType] = useState<InputType>('CSV');
 
   const handleChangeImportString = 
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -22,9 +26,23 @@ export default function ImportTable(props: Props) {
     setErrorMessage('');
     setTableNameToImport(e.target.value);
   }
+  const getTableFromCSV = (tableToImport: string) => {
+    const csvArr = tableToImport.split(/\n/);
+    const headers = csvArr[0].split(',');
+    const rows = csvArr.slice(1);
+    return rows.map(row => {
+      const values = row.split(',');
+      const jsonRow: any = {};
+      headers.forEach((key, i) => {
+        jsonRow[key] = values[i];
+      });
+      return jsonRow;
+    });
+  }
   const handleImport = () => {
     try {
-      const parsedTable = JSON.parse(tableToImport)
+      const parsedTable = inputType === 'JSON' ? 
+        JSON.parse(tableToImport) : getTableFromCSV(tableToImport);
       if (!Array.isArray(parsedTable)) {
         throw Error('Not a valid table');
       }
@@ -35,6 +53,13 @@ export default function ImportTable(props: Props) {
     }
     catch(error: any) {
       setErrorMessage(error.message);
+    }
+  }
+
+  const handleChangeInputType = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value as InputType;
+    if (e.target.checked) {
+      setInputType(value);
     }
   }
   return (
@@ -48,8 +73,30 @@ export default function ImportTable(props: Props) {
             onChange={handleChangeImportTableName}
             value={tableNameToImport} />
         </div>
+        <div className="btn-container">
+          <div>
+            <input
+              id="JSON"
+              checked={inputType === 'JSON'}
+              type="radio"
+              name="input_type"
+              value="JSON"
+              onChange={handleChangeInputType}/>
+            <label htmlFor="JSON">JSON</label>
+          </div>
+          <div>
+            <input
+              id="CSV"
+              checked={inputType === 'CSV'}
+              type="radio"
+              name="input_type"
+              value="CSV"
+              onChange={handleChangeInputType}/>
+            <label htmlFor="CSV">CSV</label>
+          </div>
+        </div>
         <div className="column-container">
-          <label>Table(array of JSON):  </label>
+          <label>Table({inputType === 'JSON' ? 'array of JSON' : 'CSV'}):  </label>
           <textarea value={tableToImport} onChange={handleChangeImportString}/>
           <span className="error-container">{errorMessage}</span>
         </div>
