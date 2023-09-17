@@ -10,12 +10,12 @@ export function evaluateWhereCondition(row: any, where: string): boolean {
 }
 
 const evaluateExp = (row: any, exp: string) => {
-  let [leftOperand, operator, rightOperand] = exp.split(' ');
+  const [leftOperand, operator] = exp.split(' ', 2);
+  const rightOperand = exp.split(operator)[1].trim().replace(/'/g, "");
   if(leftOperand && operator && rightOperand) {
-    rightOperand = rightOperand.replace(/'/g, "")
     switch(operator) {
       case '=': 
-        return row[leftOperand] === rightOperand;
+        return row[leftOperand].toString() === rightOperand.toString();
       case '>': 
         return row[leftOperand] > rightOperand;
       case '>=': 

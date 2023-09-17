@@ -27,15 +27,16 @@ export default function QueryInput(props: Props) {
     let res;
     if (columns && tableName) {
       if(where) {
-        res = allTables[tableName].filter(row => evaluateWhereCondition(row, where))
+        res = allTables[tableName].filter(
+          row => evaluateWhereCondition(row, where));
       } else {
         res = allTables[tableName];
       }
       if (columns.trim() !== '*') {
         res = res?.map(row => 
-          columns.split(',').reduce((acc, col) => ({...acc, [`${col.trim()}`]: row[col.trim()] }), {}));
+          columns.split(',').reduce((acc, col) => 
+          ({...acc, [`${col.trim()}`]: row[col.trim()] }), {}));
       }
-      
       setFilteredTable(res || []);
     } else {
       setErrorMessage('Wrong query'); 

@@ -10,38 +10,54 @@ type Props = {
 export default function ImportTable(props: Props) {
   const [tableToImport, setTableToImport] = useState('');
   const [tableNameToImport, setTableNameToImport] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChangeImportString = 
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setTableToImport(e.target.value)
+    setErrorMessage('');
+    setTableToImport(e.target.value);
   }
   const handleChangeImportTableName = 
     (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTableNameToImport(e.target.value)
+    setErrorMessage('');
+    setTableNameToImport(e.target.value);
   }
   const handleImport = () => {
     try {
       const parsedTable = JSON.parse(tableToImport)
       if (!Array.isArray(parsedTable)) {
-        throw new Error('Not a valid table');
+        throw Error('Not a valid table');
+      }
+      if (!tableNameToImport) {
+        throw Error('table name is required');
       }
       props.handleImport(tableNameToImport, parsedTable);
-
     }
-    catch(error) {
-      console.error(error)
+    catch(error: any) {
+      setErrorMessage(error.message);
     }
   }
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <input
-          type="text"
-          onChange={handleChangeImportTableName}
-          value={tableNameToImport} />
-        <textarea value={tableToImport} onChange={handleChangeImportString}/>
-        <button onClick={handleImport}>Import</button>
-        <button onClick={() => {props.hideModal()}}>Close</button>
+        <b>Import New Table</b>
+        <div className="column-container">
+          <label>Table Name: </label>
+          <input
+            type="text"
+            onChange={handleChangeImportTableName}
+            value={tableNameToImport} />
+        </div>
+        <div className="column-container">
+          <label>Table(array of JSON):  </label>
+          <textarea value={tableToImport} onChange={handleChangeImportString}/>
+          <span className="error-container">{errorMessage}</span>
+        </div>
+        <div className="btn-container">
+          <button onClick={handleImport}>Import</button>
+          <button onClick={() => {props.hideModal()}}>Close</button>
+        </div>
+        
       </div>
     </div>
   );

@@ -10,27 +10,6 @@
   "ot tbl";
   height: 100vh;
 }
-.query-input {
-  grid-area: in;
-  position: relative;
-}
-.query-input .run {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.query-input .run .error {
-  color: red;
-  font-size: large;
-}
-.query-input textarea {
-  font-size: large;
-  height: 100%;
-  width: 100%;
-  resize: none;
-}
 .query-output {
   grid-area: ot;
   overflow: scroll;
@@ -39,11 +18,10 @@
   grid-area: tbl;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-}
-.avaiable-tables .table {
-  height: 100%;
   overflow: scroll;
-  flex: 1;
+}
+.avaiable-tables .table-wrapper {
+  overflow: scroll;
+  flex-wrap: nowrap;
   margin: 12px;
 }

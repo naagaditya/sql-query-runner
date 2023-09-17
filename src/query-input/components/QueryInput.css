@@ -1,0 +1,22 @@
+
+.query-input {
+  grid-area: in;
+  position: relative;
+}
+.query-input .run {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.query-input .run .error {
+  color: red;
+  font-size: large;
+}
+.query-input textarea {
+  font-size: large;
+  height: 100%;
+  width: 100%;
+  resize: none;
+}
