@@ -24,3 +24,6 @@ th {
   background-color: #d3dce6;;
   color: #000;
 }
+td::-webkit-scrollbar {
+  display: none;
+}

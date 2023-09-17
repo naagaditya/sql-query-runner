@@ -57,6 +57,7 @@ export default function QueryInput(props: Props) {
   return (
     <div className="query-input">
       <textarea
+        placeholder="Type your SQL query: eg: SELECT firstName, age FROM Users;"
         value={query}
         onChange={handleChangeQuery}
         onKeyDown={handleKeyPress}
