@@ -15,7 +15,7 @@ const evaluateExp = (row: any, exp: string) => {
   if(leftOperand && operator && rightOperand) {
     switch(operator) {
       case '=': 
-        return row[leftOperand].toString() === rightOperand.toString();
+        return row[leftOperand]?.toString() === rightOperand?.toString();
       case '>': 
         return row[leftOperand] > rightOperand;
       case '>=': 

@@ -15,7 +15,9 @@ export default function TableWrapper(props: Props) {
         <b>{tableName}</b>
         <button onClick={() => {handleDeleteTable(tableName)}}>Remove</button>
       </div>
-      <Table tableData={tableData}/>
+      <div className="table">
+        <Table tableData={tableData}/>
+      </div>
     </div>
   );
 }

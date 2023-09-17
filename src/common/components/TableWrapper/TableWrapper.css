@@ -4,6 +4,8 @@
   width: 100%;
 }
 .table-wrapper {
-  overflow: scroll;
   margin: 12px;
+}
+.table {
+  overflow: scroll;
 }

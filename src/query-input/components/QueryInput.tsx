@@ -26,7 +26,8 @@ export default function QueryInput(props: Props) {
     }
     let res;
     if (!tableName || !allTables[tableName]) {
-      setErrorMessage('Table not found')
+      setErrorMessage('Table not found');
+      return;
     }
     if (columns && tableName) {
       if(where) {
