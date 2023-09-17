@@ -47,26 +47,3 @@
   flex: 1;
   margin: 12px;
 }
-
-.table-name {
-  display: flex;
-  justify-content: space-between;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 50%);
-}
-.modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 500px;
-  width: 500px;
-  margin: auto;
-  flex-direction: column;
-}

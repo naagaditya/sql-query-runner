@@ -1,0 +1,9 @@
+.table-name {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.table-wrapper {
+  overflow: scroll;
+  margin: 12px;
+}

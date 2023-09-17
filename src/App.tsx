@@ -1,4 +1,4 @@
-import SQLQueryRunner from './SQLQueryRunner/components/SQLQueryRunner';
+import SQLQueryRunner from './sql-query-runner/components/SQLQueryRunner';
 
 function App() {
   return (
