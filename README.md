@@ -26,3 +26,9 @@ Now you will be able to run query on imported table using the table name you pro
 ## Get sample dummy data
 1. JSON: https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json
 2. CSV: https://github.com/graphql-compose/graphql-compose-examples/blob/master/examples/northwind/data/csv/suppliers.csv?plain=1
+
+## DEMO
+
+
+https://github.com/naagaditya/sql-query-runner/assets/20066919/3e795160-1e44-418a-9b4a-135e02323b73
+
