@@ -25,11 +25,11 @@ export default function QueryInput(props: Props) {
       [, columns, tableName] = query.match(/SELECT (.*) FROM (.*);/) || [];
     }
     let res;
-    if (!tableName || !allTables[tableName]) {
-      setErrorMessage('Table not found');
-      return;
-    }
     if (columns && tableName) {
+      if (!allTables[tableName]) {
+        setErrorMessage('Table not found');
+        return;
+      }
       if(where) {
         res = allTables[tableName].filter(
           row => evaluateWhereCondition(row, where));
