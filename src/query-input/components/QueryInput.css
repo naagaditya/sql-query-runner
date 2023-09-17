@@ -2,6 +2,7 @@
 .query-input {
   grid-area: in;
   position: relative;
+  margin-bottom: 12px;
 }
 .query-input .run {
   position: absolute;

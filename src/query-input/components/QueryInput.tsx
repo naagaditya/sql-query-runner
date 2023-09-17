@@ -25,6 +25,9 @@ export default function QueryInput(props: Props) {
       [, columns, tableName] = query.match(/SELECT (.*) FROM (.*);/) || [];
     }
     let res;
+    if (!tableName || !allTables[tableName]) {
+      setErrorMessage('Table not found')
+    }
     if (columns && tableName) {
       if(where) {
         res = allTables[tableName].filter(
@@ -42,9 +45,20 @@ export default function QueryInput(props: Props) {
       setErrorMessage('Wrong query'); 
     }
   };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.code === 'Enter') {
+      e.preventDefault();
+      handleExecuteQuery();
+    }
+  }
   return (
     <div className="query-input">
-      <textarea value={query} onChange={handleChangeQuery}/>
+      <textarea
+        value={query}
+        onChange={handleChangeQuery}
+        onKeyDown={handleKeyPress}
+      />
       <div className="run">
         <span className='error'>{errorMessage}</span>
         <button onClick={handleExecuteQuery}>Run</button>

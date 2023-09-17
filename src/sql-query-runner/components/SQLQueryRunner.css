@@ -10,18 +10,27 @@
   "ot tbl";
   height: 100vh;
 }
+
 .query-output {
   grid-area: ot;
   overflow: scroll;
 }
+
 .avaiable-tables {
   grid-area: tbl;
   display: flex;
   flex-direction: column;
   overflow: scroll;
 }
+
 .avaiable-tables .table-wrapper {
   overflow: scroll;
   flex-wrap: nowrap;
   margin: 12px;
+}
+
+.import-btn {
+  width: fit-content;
+  align-self: flex-end;
+  padding: 4px;
 }

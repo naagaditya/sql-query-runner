@@ -31,7 +31,7 @@ export default function SQLQueryRunner() {
         <Table tableData={filteredTable}/>
       </div>
       <div className="avaiable-tables">
-        <button onClick={() => {setShowImportModal(true)}}>Import Table</button>
+        <button className="import-btn" onClick={() => {setShowImportModal(true)}}>Import Table</button>
         {Object.keys(allTables).map((tableName, index) =>
           <TableWrapper
             key={`${tableName}${index}`}

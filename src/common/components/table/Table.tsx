@@ -29,5 +29,5 @@ const TableRow = ({row, index}: {row: any; index: number}) => (<tr>
 const HeaderCell = ({text}: {text: string}) => <th>{text}</th>;
 const TableCell = ({data}: {data: any}) => 
   (<td>
-    {typeof data === 'object' ? JSON.stringify(data) : data.toString()}
+    {typeof data === 'object' ? JSON.stringify(data) : data?.toString()}
   </td>);
